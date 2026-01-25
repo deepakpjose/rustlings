@@ -1,13 +1,25 @@
+use std::any::type_name;
+
+fn type_of<T>(_: &T) -> &'static str {
+    type_name::<T>()
+}
+
 fn trim_me(input: &str) -> &str {
     // TODO: Remove whitespace from both ends of a string.
+    input.trim()
 }
 
 fn compose_me(input: &str) -> String {
     // TODO: Add " world!" to the string! There are multiple ways to do this.
+    let s1 = input.to_string();
+    let s2 = String::from("world!");
+    let s3 = s1 + " " + &s2;
+    s3
 }
 
 fn replace_me(input: &str) -> String {
     // TODO: Replace "cars" in the string with "balloons".
+    input.replace("cars", "balloons")
 }
 
 fn main() {
