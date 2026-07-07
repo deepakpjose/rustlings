@@ -11,20 +11,38 @@ trait OtherTrait {
 }
 
 struct SomeStruct;
-impl SomeTrait for SomeStruct {}
-impl OtherTrait for SomeStruct {}
+impl SomeTrait for SomeStruct {
+    fn some_function(&self) -> bool {
+        println!("Hello some");
+        true
+    }
+
+}
+impl OtherTrait for SomeStruct {
+    fn other_function(&self) -> bool {
+        println!("Hello other");
+        true
+    }
+}
 
 struct OtherStruct;
 impl SomeTrait for OtherStruct {}
 impl OtherTrait for OtherStruct {}
 
 // TODO: Fix the compiler error by only changing the signature of this function.
-fn some_func(item: ???) -> bool {
+fn some_func<T>(item: T) -> bool 
+    where T: SomeTrait + OtherTrait
+{
     item.some_function() && item.other_function()
 }
 
 fn main() {
     // You can optionally experiment here.
+    let some = SomeStruct {};
+    let other = OtherStruct {};
+
+    some_func(some);
+    some_func(other);
 }
 
 #[cfg(test)]
